@@ -1,0 +1,37 @@
+@baseUrl = http://127.0.0.1:8000
+@username = {{$processEnv USERNAME}}
+@password = {{$processEnv PASSWORD}}
+@token = {{$processEnv ACCESS_TOKEN}}
+
+### Login to get token
+POST {{baseUrl}}/api/token/
+Content-Type: application/json
+
+{
+    "username": "{{username}}",
+    "password": "{{password}}"
+}
+
+### List all stocks
+GET {{baseUrl}}/api/stocks/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Get specific stock
+GET {{baseUrl}}/api/stocks/AAPL/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Get user portfolio
+GET {{baseUrl}}/api/portfolio/
+Authorization: Bearer {{token}}
+
+### Buy stock
+POST {{baseUrl}}/api/portfolio/buy_stock/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "symbol": "AAPL",
+    "quantity": 5
+}
